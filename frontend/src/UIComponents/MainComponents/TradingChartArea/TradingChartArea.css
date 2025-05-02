@@ -19,6 +19,5 @@
 @media screen and (max-width: 768px) {
   .tradingchart-area {
     width: 100%;
-    height: auto;
   }
 }
