@@ -80,9 +80,9 @@
     height: auto;
     min-height: 100%;
     overflow-y: auto;
-    overflow-x: hidden;
+    overflow-x: auto;
     justify-content: flex-start;
-    width: 100%;
+    min-width: 100%;
   }
 
   .background-heading {
