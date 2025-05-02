@@ -81,3 +81,13 @@
 .top-info-panel-text-color-red {
   color: #ff5353;
 }
+
+@media screen and (max-width: 768px) {
+  .top-info-panel-container {
+    height: fit-content;
+    white-space: pre;
+  }
+  .top-info-panel-one-element-box {
+    font-size: 12px;
+  }
+}
