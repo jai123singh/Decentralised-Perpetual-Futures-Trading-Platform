@@ -76,20 +76,23 @@
 /* Media query for mobile devices */
 @media screen and (max-width: 768px) {
   .background {
-    font-size: 10px;
-    height: fit-content;
-    overflow: scroll;
+    position: relative;
+    height: auto;
+    min-height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    justify-content: flex-start;
   }
 
   .background-heading {
     height: fit-content;
     overflow: scroll;
     font-size: 14px;
+    min-height: 20px;
   }
 
   .background-top-info-section {
     height: fit-content;
-    font-size: 9px;
   }
 
   .background-middle-section {
@@ -100,7 +103,7 @@
     padding-bottom: 2%;
   }
   .background-bottom-section {
-    height: fit-content;
+    height: 15px;
   }
   .background-bottom-section-left-section {
     font-size: 9px;
