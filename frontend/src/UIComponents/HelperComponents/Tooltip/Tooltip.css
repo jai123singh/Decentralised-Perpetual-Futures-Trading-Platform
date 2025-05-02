@@ -1,0 +1,18 @@
+.custom-tooltip {
+  position: fixed;
+  background-color: #2c2c2c;
+  color: #ffffff;
+  padding: 6px 10px;
+  border-radius: 5px;
+  border: 1px solid #2a2a2a;
+  pointer-events: none;
+  z-index: 10001;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
+  opacity: 1;
+  transition: top 0.05s, left 0.05s;
+  font-size: 12px;
+  font-weight: 300 !important;
+  white-space: pre-wrap;
+  max-width: 200px;
+  word-wrap: break-word;
+}

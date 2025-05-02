@@ -1,0 +1,64 @@
+/* Fullscreen overlay to disable background interaction */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000001;
+}
+
+/* Modal container */
+.modal-content {
+  width: 32vw;
+  min-width: 320px;
+  max-width: 480px;
+  background: #1a1a1a; /* dYdX dark modal background */
+  padding: 12px;
+  padding-top: 24px;
+  padding-bottom: 24px;
+  border-radius: 16px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.6);
+  z-index: 1000002;
+  position: relative;
+  color: #ffffff;
+  font-family: "Inter", sans-serif;
+  border: 1px solid #2a2a2a;
+}
+
+/* Close button (like dYdX's small "X" in top right) */
+.close-modal-button {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: transparent;
+  border: none;
+  color: #888;
+  font-size: 20px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.close-modal-button:hover {
+  color: #ffffff;
+  background-color: transparent;
+}
+
+.modal-content-main-heading {
+  width: 100%;
+  font-size: 20px;
+  font-weight: 600;
+  color: white;
+  margin: 0;
+  text-align: left;
+}

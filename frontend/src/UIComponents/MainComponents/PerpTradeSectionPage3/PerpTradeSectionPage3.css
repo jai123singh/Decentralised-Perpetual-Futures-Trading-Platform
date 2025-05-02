@@ -1,0 +1,59 @@
+.perp-trade-section-page3-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 0%;
+  padding: 0%;
+  box-sizing: border-box;
+  height: 90%;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  gap: 0%;
+}
+
+.perp-trade-section-page3-confirmation-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 0%;
+  padding: 0%;
+  box-sizing: border-box;
+  height: 50%;
+  width: 70%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  background: #2c2c2c;
+  border-radius: 2vmin;
+}
+
+.perp-trade-section-page3-confirmation-box-button-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 0%;
+  padding: 0%;
+  box-sizing: border-box;
+  height: 30%;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.perp-trade-section-page3-green-color-style {
+  color: #00c087;
+}
+
+.perp-trade-section-page3-red-color-style {
+  color: #ff5353;
+}
+
+.perp-trade-section-page3-button-style {
+  width: 30% !important;
+}

@@ -1,0 +1,33 @@
+.walletButton {
+  padding: 1%;
+  background-color: red;
+  border-radius: 2%;
+  cursor: pointer;
+  white-space: nowrap;
+
+  /* Ensuring the button resizes dynamically */
+  max-width: 50%;
+  width: max-content;
+
+  /* Preventing overflow */
+  box-sizing: border-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.walletButton-responsive:hover {
+  background-color: darkred;
+}
+
+button {
+  padding: 2%;
+  border: none;
+  background: #007bff;
+  color: white;
+  cursor: pointer;
+  border-radius: 2%;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+}

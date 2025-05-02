@@ -1,0 +1,78 @@
+.wallet-connector {
+  position: relative;
+  display: inline-block;
+  position: absolute;
+  top: 1.75%;
+  right: 2%;
+}
+
+.wallet-address-btn {
+  background: #2c2c2c;
+  color: #ffffff;
+  padding: 8px 14px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background-color 0.2s ease;
+}
+
+.wallet-address-btn:hover {
+  background-color: #3a3a3a;
+}
+
+.arrow {
+  font-size: 12px;
+  color: #ccc;
+}
+
+.wallet-popover {
+  position: absolute;
+  top: 110%;
+  right: 0;
+  background: #1c1c1c;
+  color: #fff;
+  padding: 12px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  z-index: 100;
+  width: max-content;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+  border: 1px solid #2a2a2a;
+}
+
+.popover-address {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  color: #a0a0a0;
+  word-break: break-all;
+  width: max-content;
+}
+
+.copy-btn {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.copy-btn:hover {
+  color: #4fc3f7;
+}
+
+.disconnect-btn {
+  color: #ff5353 !important;
+  width: 50% !important;
+}

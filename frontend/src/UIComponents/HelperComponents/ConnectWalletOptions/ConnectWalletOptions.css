@@ -1,0 +1,29 @@
+.connect-wallet-options {
+  background-color: #2c2c2c;
+  color: #ffffff;
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  transition: background-color 0.2s ease;
+  outline: none;
+  width: 60%;
+}
+
+.connect-wallet-options:hover {
+  background-color: #3a3a3a;
+}
+.connect-wallet-options:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.connect-wallet-options:active {
+  transform: scale(0.98);
+}
