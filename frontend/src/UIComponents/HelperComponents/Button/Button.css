@@ -28,3 +28,9 @@
   outline: none;
   box-shadow: none;
 }
+
+@media screen and (max-width: 768px) {
+  .button-style {
+    font-size: 11px;
+  }
+}

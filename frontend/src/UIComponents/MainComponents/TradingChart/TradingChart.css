@@ -41,3 +41,8 @@
   transform: none !important;
 }
 
+@media screen and (max-width: 768px) {
+  .trading-chart-button-group-container {
+    width: auto;
+  }
+}
