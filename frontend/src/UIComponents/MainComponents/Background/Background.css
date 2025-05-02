@@ -49,7 +49,6 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  font-size: 1.2em;
   font-weight: bold;
   overflow: hidden; /* when child size becomes larger than parent, this hides the part of child that overflows */
   text-overflow: ellipsis; /* to put ...... for the part that is not visible on the screen*/
@@ -76,12 +75,38 @@
 
 /* Media query for mobile devices */
 @media screen and (max-width: 768px) {
+  .background {
+    font-size: 10px;
+    height: fit-content;
+    overflow: scroll;
+  }
+
+  .background-heading {
+    height: fit-content;
+    overflow: scroll;
+    font-size: 12px;
+  }
+
+  .background-top-info-section {
+    height: fit-content;
+    font-size: 9px;
+  }
+
   .background-middle-section {
     flex-direction: column; /* Changes to column on mobile */
-    height: auto;
+    height: fit-content;
     align-items: center;
     padding-top: 2%;
     padding-bottom: 2%;
+  }
+  .background-bottom-section {
+    height: fit-content;
+  }
+  .background-bottom-section-left-section {
+    font-size: 9px;
+  }
+  .background-bottom-section-right-section {
+    font-size: 9px;
   }
 }
 
