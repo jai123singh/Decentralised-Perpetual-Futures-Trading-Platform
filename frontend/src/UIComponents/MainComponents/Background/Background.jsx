@@ -246,17 +246,58 @@ export default function Background() {
         <div className="background-heading">
           Decentralised Perpetual Futures Trading Platform
         </div>
-
         <div className="background-top-info-section">
           <TopInfoPanel></TopInfoPanel>
         </div>
-
         <div className="background-middle-section">
           <TradingChartArea />
           <TraderInteractionArea />
         </div>
-
-        <div className="background-bottom-section"></div>
+        <div className="background-bottom-section">
+          <div className="background-bottom-section-left-section">
+            <a
+              href="https://github.com/jai123singh/Decentralised-Perpetual-Futures-Trading-Platform"
+              target="_blank"
+              className="background-bottom-section-anchor"
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 98 96"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M48.854,0 C21.839,0 0,22 0,49.217 C0,70.973 13.993,89.389 33.405,95.904 C35.832,96.379 36.721,94.879 36.721,93.574 C36.721,92.381 36.651,88.893 36.651,84.723 C23.054,87.682 20.201,78.824 20.201,78.824 C17.994,73.119 14.795,71.619 14.795,71.619 C10.353,68.566 15.12,68.566 15.12,68.566 C20.027,68.847 22.608,73.611 22.608,73.611 C26.977,81.115 34.01,79.039 36.862,77.734 C37.218,74.539 38.528,72.256 39.977,70.973 C29.14,69.773 17.781,65.533 17.781,46.594 C17.781,41.251 19.633,36.883 22.676,33.41 C22.252,32.176 20.607,27.105 23.282,20.359 C23.282,20.359 27.438,19.053 36.65,25.405 C40.558,24.309 44.761,23.761 48.963,23.761 C53.166,23.761 57.369,24.309 61.276,25.405 C70.489,19.053 74.645,20.359 74.645,20.359 C77.32,27.105 75.675,32.176 75.251,33.41 C78.294,36.883 80.146,41.251 80.146,46.594 C80.146,65.533 68.787,69.703 57.95,70.973 C59.75,72.619 61.276,75.744 61.276,80.463 C61.276,87.209 61.206,91.873 61.206,93.574 C61.206,94.879 62.096,96.379 64.522,95.904 C83.934,89.389 97.927,70.973 97.927,49.217 C97.858,22 75.948,0 48.854,0 Z"
+                  fill="#FFFFFF"
+                />
+              </svg>{" "}
+              View on GitHub
+            </a>
+          </div>
+          <div className="background-bottom-section-right-section">
+            <svg width="16" height="16" viewBox="0 0 784.37 1277.39">
+              <path
+                fill="#8A92B2"
+                d="M392.07,0L383.5,29.11V873.74l8.57,8.53,392.06-231.75Z"
+              />
+              <path
+                fill="#62688F"
+                d="M392.07,0L0,650.52l392.07,231.75V472.33Z"
+              />
+              <path
+                fill="#8A92B2"
+                d="M392.07,956.52l-4.83,5.89v300.87l4.83,14.1,392.3-552.49Z"
+              />
+              <path fill="#62688F" d="M392.07,1277.38V956.52L0,724.89Z" />
+              <path
+                fill="#454A75"
+                d="M392.07,882.29l392.06-231.77-392.06-178.21Z"
+              />
+              <path fill="#8A92B2" d="M0,650.52l392.07,231.77V472.33Z" />
+            </svg>
+            <span>Powered by Ethereum Smart Contract</span>
+          </div>
+        </div>
       </div>
     </TradeProvider>
   );

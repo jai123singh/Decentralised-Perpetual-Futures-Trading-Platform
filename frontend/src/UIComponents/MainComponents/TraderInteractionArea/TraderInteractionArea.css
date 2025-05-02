@@ -14,3 +14,10 @@
   background-color: transparent;
   border: 1px solid #2a2a2a;
 }
+
+@media screen and (max-width: 768px) {
+  .trading-interface {
+    width: 100%;
+    height: auto;
+  }
+}
