@@ -1,74 +1,167 @@
-# Decentralised Perpetual Futures Trading Platform
+Decentralised Perpetual Futures Trading Platform
+A full-stack blockchain-based perpetual futures trading platform featuring a virtual AMM, automated liquidations, funding rate mechanisms, and advanced risk management tools.
 
-A blockchain-based perpetual futures trading platform featuring automated liquidation, funding rate mechanisms, and a virtual AMM system.
+🔗 Live Demo
+Access the trading platform
+(Frontend deployed on Vercel)
 
-## Live Demo
+🏗️ Architecture
+This project follows a three-tier architecture:
 
-[Access the trading platform](https://decentralised-perpetual-futures-trading-platform-frontend.vercel.app/) (Deployed on Vercel)
+Frontend: React.js app hosted on Vercel
 
-## Architecture
+Backend: Node.js service running on Google Cloud’s free e2-micro VM
 
-This project uses a three-tier architecture:
+Smart Contracts: Deployed on Ethereum's Sepolia Testnet
 
-- **Frontend**: React application hosted on Vercel
-- **Backend**: Node.js service running on Google Cloud's e2-micro VM
-- **Smart Contracts**: Deployed on Ethereum's Sepolia testnet
+✨ Features
+📈 Trading Capabilities
+Open long or short positions on SNX perpetual futures
 
-## Features
+Leverage options: 1x, 2x, 5x, 10x, and 20x
 
-### Trading Capabilities
+Custom slippage tolerance: 0.01% to 100.00%
 
-- **Position Management**: Open long or short positions with your choice of parameters
-- **Leverage Options**: Trade with 1x, 2x, 5x, 10x, or 20x leverage
-- **Customizable Slippage**: Set slippage tolerance from 0.01% to 100.00%
-- **Position Closing**: Close positions at any time (full position only)
+View and manage your open position in real-time
 
-### Risk Management
+Close full positions at any time (partial closing not supported)
 
-- **Automated Liquidation**: Positions are liquidated when net margin falls below maintenance margin
-- **Liquidation Warning**: Receive notifications with liquidation price information
-- **Additional Margin**: Add more margin to prevent liquidation of positions
-- **Deposit Management**: Deposit and withdraw funds independently from positions
+Trade only integer amounts (e.g., 1, 2, 3 perps)
 
-### Financial Mechanisms
+🛡️ Risk Management
+Automated Liquidation:
 
-- **Funding Rate**: Automatically executed every 8 hours on open positions
-- **TWAP Implementation**: Time-Weighted Average Price of the last ten perp prices used for funding rate calculations
-- **Platform Fees**:
-  - 0.05% of total trade size when opening positions
-  - 5% of remaining margin after liquidation
-  - 10% of gains during funding rate mechanisms
+Triggered when net margin (initial margin – unrealized loss) < maintenance margin (2% of position size)
 
-### Technical Implementation
+Complete liquidation only (no partial liquidation)
 
-- **Virtual AMM**: Constant product algorithm used on virtual liquidity pool to determine perp prices
-- **Heap Data Structure**: Optimized liquidation triggering using a price-based heap
-- **Fault-Tolerant Backend**:
-  - PostgreSQL database for historical data
-  - Self-healing WebSocket connections
-  - Blockchain polling for missed events
-  - Fallback funding rate execution mechanism
+Liquidation Warnings:
 
-### User Interface
+Real-time alerts including the liquidation price
 
-- **Price Charts**: Multiple timeframe options (1min, 5min, 15min, 1hr, 4hr, 1day, 1week)
-- **Position Metrics**: View margin, maintenance margin, net margin, and current PnL
-- **Notifications**: Receive alerts for important events (funding rate, liquidation, position changes)
-- **Real-time Updates**: Latest prices and funding rates displayed prominently
+Add additional margin from your deposit to avoid liquidation
 
-## Current Limitations
+Deposit Management:
 
-1. **Single Asset Trading**: Currently only SNX perpetual futures are supported
-2. **No Partial Position Changes**: Positions must be fully closed before opening new ones
-3. **No Partial Liquidations**: Positions are fully liquidated when triggered
-4. **Integer-Only Perp Trading**: Cannot trade fractional perp amounts (e.g., 1.1 perps)
-5. **Fixed Maintenance Margin**: Set at 2% of total position size
-6. **Transaction Requirements**: All state-changing operations require wallet signature
+Deposit and withdraw funds independently
 
-## License
+Deposits are used for position margin
 
-[MIT](LICENSE)
+Frontend Validations:
 
-## Contact
+Prevents invalid trades (e.g., insufficient deposit, invalid perp size)
 
-For questions or feedback, please open an issue on this repository or reach out at [Jaisinghtomar9211@gmail.com](Jaisinghtomar9211@gmail.com).
+Only integer perps allowed
+
+Smart Contract Validations:
+
+Independent of frontend—prevents direct malicious interactions via Remix or other tools
+
+💸 Financial Mechanisms
+Virtual AMM:
+
+Uses a constant product formula on a virtual liquidity pool
+
+No real assets are stored in the pool—used only for pricing
+
+Funding Rate Mechanism:
+
+Executed every 8 hours automatically
+
+Based on TWAP (Time-Weighted Average Price) of last 10 perp trades
+
+Gaining trader pays 10% of gains as funding fee; losing trader pays none
+
+Platform Fees:
+
+0.05% of total trade size when opening a position
+
+5% of remaining margin after liquidation
+
+10% of gains during funding rate (collected only from gainer)
+
+Fee Withdrawals:
+
+Only beneficiary can withdraw collected platform fees
+
+⚙️ Technical Implementation
+Heap-Based Liquidation Queue:
+
+Efficient liquidation trigger using heap of liquidation prices
+
+Backend:
+
+PostgreSQL for storing price and trade history
+
+Real-time WebSocket price streaming with self-healing reconnections
+
+Blockchain polling to recover missed events after downtime
+
+Sends email alerts on critical events (e.g., funding executed, WS failure)
+
+Fallback funding mechanism: ensures funding still works even if backend fails
+
+Smart Contract:
+
+Uses OpenZeppelin’s ReentrancyGuard
+
+All user-facing external functions are unit tested
+
+Frontend:
+
+Real-time display of:
+
+Current perp price and Chainlink oracle price of SNX in ETH
+
+Position stats: entry price, leverage, margin, maintenance margin, net margin, unrealized PnL
+
+Last funding rate and countdown to next funding
+
+Multiple time-frame candlestick chart (1m, 5m, 15m, 1h, 4h, 1d, 1w)
+
+In-app notifications for:
+
+New position
+
+Margin update
+
+Position closed
+
+Liquidation triggered
+
+Funding mechanism executed
+
+Tooltips explaining all financial jargons
+
+“View on GitHub” link at footer for transparency
+
+“About” section detailing the platform
+
+⚠️ Current Limitations
+Only one asset (SNX) is supported
+
+Only one open position allowed at a time
+
+Positions must be fully closed before opening a new one (no partial trades)
+
+No partial liquidation—positions are fully liquidated if triggered
+
+Only integer perps can be traded (e.g., not 1.1)
+
+Maintenance margin is fixed at 2% of position size
+
+Every state-changing operation requires a wallet signature (MetaMask popup)
+
+🧪 Tech Stack
+Frontend: React, Lightweight Charts, Raw CSS
+
+Backend: Node.js, Express, PostgreSQL, WebSocket, Nodemailer
+
+Smart Contracts: Solidity (Foundry), OpenZeppelin, Sepolia Testnet
+
+📜 License
+MIT
+
+📬 Contact
+For questions, issues, or feedback:
+📧 Jaisinghtomar9211@gmail.com
