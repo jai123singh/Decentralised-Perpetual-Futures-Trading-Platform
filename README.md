@@ -12,7 +12,7 @@ This project uses a three-tier architecture:
 
 - **Frontend**: React application hosted on Vercel
 - **Backend**: Node.js service running on Google Cloud's e2-micro VM instance
-- **Smart Contracts**: Deployed on Ethereum's Sepolia testnet
+- **Smart Contract**: Deployed on Ethereum's Sepolia testnet
 
 ## Key Features
 
@@ -26,7 +26,7 @@ This project uses a three-tier architecture:
 ### Risk Management
 
 - Automated liquidation system when net margin falls below maintenance margin
-- Liquidation price warnings and notifications
+- Liquidation price warning
 - Ability to add margin to existing positions to prevent liquidation
 - Separate deposit management from position margin
 
