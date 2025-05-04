@@ -4,7 +4,7 @@ pragma solidity ^0.8.13;
 import {Script, console} from "forge-std/Script.sol";
 import {Perp} from "../src/Perp.sol";
 
-contract CounterScript is Script {
+contract PerpScript is Script {
     Perp public perp;
 
     function setUp() public {}
@@ -12,7 +12,7 @@ contract CounterScript is Script {
     function run() public {
         vm.startBroadcast();
 
-        perp = new Perp(1000000);
+        perp = new Perp(100000);
 
         vm.stopBroadcast();
     }
