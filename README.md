@@ -1,167 +1,87 @@
-Decentralised Perpetual Futures Trading Platform
-A full-stack blockchain-based perpetual futures trading platform featuring a virtual AMM, automated liquidations, funding rate mechanisms, and advanced risk management tools.
+# Decentralized Perpetual Futures Trading Platform
 
-🔗 Live Demo
-Access the trading platform
-(Frontend deployed on Vercel)
+A blockchain-based perpetual futures trading platform featuring automated liquidation, funding rate mechanisms, and a virtual AMM system.
 
-🏗️ Architecture
-This project follows a three-tier architecture:
+## Live Demo
 
-Frontend: React.js app hosted on Vercel
+[Access the trading platform](https://decentralised-perpetual-futures-trading-platform-frontend.vercel.app/) (Deployed on Vercel)
 
-Backend: Node.js service running on Google Cloud’s free e2-micro VM
+## Architecture
 
-Smart Contracts: Deployed on Ethereum's Sepolia Testnet
+This project uses a three-tier architecture:
 
-✨ Features
-📈 Trading Capabilities
-Open long or short positions on SNX perpetual futures
+- **Frontend**: React application hosted on Vercel
+- **Backend**: Node.js service running on Google Cloud's e2-micro VM instance
+- **Smart Contracts**: Deployed on Ethereum's Sepolia testnet
 
-Leverage options: 1x, 2x, 5x, 10x, and 20x
+## Key Features
 
-Custom slippage tolerance: 0.01% to 100.00%
+### Trading Capabilities
 
-View and manage your open position in real-time
+- Open long or short positions with customizable parameters
+- Multiple leverage options: 1x, 2x, 5x, 10x, or 20x
+- Adjustable slippage tolerance (0.01% to 100.00%)
+- Position management (close positions at any time)
 
-Close full positions at any time (partial closing not supported)
+### Risk Management
 
-Trade only integer amounts (e.g., 1, 2, 3 perps)
+- Automated liquidation system when net margin falls below maintenance margin
+- Liquidation price warnings and notifications
+- Ability to add margin to existing positions to prevent liquidation
+- Separate deposit management from position margin
 
-🛡️ Risk Management
-Automated Liquidation:
+### Financial Mechanisms
 
-Triggered when net margin (initial margin – unrealized loss) < maintenance margin (2% of position size)
+- 8-hour funding rate cycle for balancing long and short interest
+- TWAP (Time-Weighted Average Price) implementation using the last ten perpetual prices
+- Virtual AMM with constant product algorithm for price determination
+- Platform fees:
+  - 0.05% of total trade size when opening positions
+  - 5% of remaining margin after liquidation
+  - 10% of gains during funding rate settlements
 
-Complete liquidation only (no partial liquidation)
+### Technical Implementation
 
-Liquidation Warnings:
+- Price-based heap data structure for optimized liquidation processing
+- Fault-tolerant backend with:
+  - PostgreSQL database for historical data persistence
+  - Self-healing WebSocket connections
+  - Blockchain polling for missed events
+  - Fallback funding rate execution mechanism
+  - Email notifications for system events
 
-Real-time alerts including the liquidation price
+### User Interface
 
-Add additional margin from your deposit to avoid liquidation
+- Interactive price charts with multiple timeframes (1min to 1week)
+- Real-time position metrics (margin, maintenance margin, PnL)
+- Notification system for important events
+- Oracle price display for underlying asset (SNX)
+- Tooltips for trading terminology
 
-Deposit Management:
+## Security Features
 
-Deposit and withdraw funds independently
+- OpenZeppelin ReentrancyGuard implementation to prevent re-entrancy attacks
+- Multi-layer validation (both frontend and smart contract)
+- Protected administrative functions
 
-Deposits are used for position margin
+## Current Limitations
 
-Frontend Validations:
+1. **Single Asset Trading**: Currently only SNX perpetual futures are supported
+2. **No Partial Position Changes**: Positions must be fully closed before opening new ones
+3. **No Partial Liquidations**: Positions are fully liquidated when triggered
+4. **Integer-Only Trading**: Cannot trade fractional perpetual amounts
+5. **Fixed Maintenance Margin**: Set at 2% of total position size
+6. **Transaction Requirements**: All state-changing operations require wallet signature
 
-Prevents invalid trades (e.g., insufficient deposit, invalid perp size)
+## Development and Testing
 
-Only integer perps allowed
+- Comprehensive test suite for all external smart contract functions
+- Frontend validation to prevent common transaction errors
 
-Smart Contract Validations:
+## License
 
-Independent of frontend—prevents direct malicious interactions via Remix or other tools
+[MIT](LICENSE)
 
-💸 Financial Mechanisms
-Virtual AMM:
+## Contact
 
-Uses a constant product formula on a virtual liquidity pool
-
-No real assets are stored in the pool—used only for pricing
-
-Funding Rate Mechanism:
-
-Executed every 8 hours automatically
-
-Based on TWAP (Time-Weighted Average Price) of last 10 perp trades
-
-Gaining trader pays 10% of gains as funding fee; losing trader pays none
-
-Platform Fees:
-
-0.05% of total trade size when opening a position
-
-5% of remaining margin after liquidation
-
-10% of gains during funding rate (collected only from gainer)
-
-Fee Withdrawals:
-
-Only beneficiary can withdraw collected platform fees
-
-⚙️ Technical Implementation
-Heap-Based Liquidation Queue:
-
-Efficient liquidation trigger using heap of liquidation prices
-
-Backend:
-
-PostgreSQL for storing price and trade history
-
-Real-time WebSocket price streaming with self-healing reconnections
-
-Blockchain polling to recover missed events after downtime
-
-Sends email alerts on critical events (e.g., funding executed, WS failure)
-
-Fallback funding mechanism: ensures funding still works even if backend fails
-
-Smart Contract:
-
-Uses OpenZeppelin’s ReentrancyGuard
-
-All user-facing external functions are unit tested
-
-Frontend:
-
-Real-time display of:
-
-Current perp price and Chainlink oracle price of SNX in ETH
-
-Position stats: entry price, leverage, margin, maintenance margin, net margin, unrealized PnL
-
-Last funding rate and countdown to next funding
-
-Multiple time-frame candlestick chart (1m, 5m, 15m, 1h, 4h, 1d, 1w)
-
-In-app notifications for:
-
-New position
-
-Margin update
-
-Position closed
-
-Liquidation triggered
-
-Funding mechanism executed
-
-Tooltips explaining all financial jargons
-
-“View on GitHub” link at footer for transparency
-
-“About” section detailing the platform
-
-⚠️ Current Limitations
-Only one asset (SNX) is supported
-
-Only one open position allowed at a time
-
-Positions must be fully closed before opening a new one (no partial trades)
-
-No partial liquidation—positions are fully liquidated if triggered
-
-Only integer perps can be traded (e.g., not 1.1)
-
-Maintenance margin is fixed at 2% of position size
-
-Every state-changing operation requires a wallet signature (MetaMask popup)
-
-🧪 Tech Stack
-Frontend: React, Lightweight Charts, Raw CSS
-
-Backend: Node.js, Express, PostgreSQL, WebSocket, Nodemailer
-
-Smart Contracts: Solidity (Foundry), OpenZeppelin, Sepolia Testnet
-
-📜 License
-MIT
-
-📬 Contact
-For questions, issues, or feedback:
-📧 Jaisinghtomar9211@gmail.com
+For questions or feedback, please open an issue on this repository or reach out at [Jaisinghtomar9211@gmail.com](mailto:Jaisinghtomar9211@gmail.com).
