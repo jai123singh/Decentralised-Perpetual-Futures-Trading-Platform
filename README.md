@@ -4,7 +4,7 @@ A blockchain-based perpetual futures trading platform featuring automated liquid
 
 ## Live Demo
 
-[Access the trading platform](https://decentralised-perpetual-futures-trading-platform-frontend.vercel.app/) (Deployed on Vercel)
+[Access the trading platform](https://decentralised-perpetual-futures-trading-platform-frontend.vercel.app/) (Deployed on Vercel — works with the Sepolia testnet)
 
 ## Architecture
 
