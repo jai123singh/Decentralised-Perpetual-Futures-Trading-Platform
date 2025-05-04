@@ -10,8 +10,11 @@ import { useWatchContractEvent } from "wagmi";
 import { toast } from "sonner";
 import BigNumber from "bignumber.js";
 import TopInfoPanel from "../TopInfoPanel/TopInfoPanel";
+import Button from "../../HelperComponents/Button/Button";
+import AboutSection from "../AboutSection/AboutSection";
 
 export default function Background() {
+  const [page, setPage] = useState("Trade");
   const { address } = useAccount();
   const CONTRACT_ADDRESS = import.meta.env.VITE_CONTRACT_ADDRESS;
   let WEI = new BigNumber("1e18");
@@ -240,21 +243,60 @@ export default function Background() {
     },
   });
 
+  // following functions are used to switch between trading page and about section page
+  function handleTradeButtonClick() {
+    if (page !== "Trade") {
+      setPage("Trade");
+    }
+  }
+
+  function handleAboutButtonClick() {
+    if (page !== "About") {
+      setPage("About");
+    }
+  }
+
   return (
     <TradeProvider value={tradeData}>
       <div className="background">
-        <div className="background-heading">
-          Decentralised Perpetual Futures Trading Platform
-        </div>
-        <div className="background-top-info-section">
-          <TopInfoPanel></TopInfoPanel>
-        </div>
-        <div className="background-middle-section">
-          <TradingChartArea />
-          <TraderInteractionArea />
-        </div>
+        {(() => {
+          if (page === "Trade") {
+            return (
+              <>
+                <div className="background-heading">
+                  Decentralised Perpetual Futures Trading Platform
+                </div>
+                <div className="background-top-info-section">
+                  <TopInfoPanel></TopInfoPanel>
+                </div>
+                <div className="background-middle-section">
+                  <TradingChartArea />
+                  <TraderInteractionArea />
+                </div>
+              </>
+            );
+          } else {
+            return <AboutSection></AboutSection>;
+          }
+        })()}
         <div className="background-bottom-section">
           <div className="background-bottom-section-left-section">
+            <Button
+              className={`background-bottom-buttons ${
+                page === "Trade" ? "background-bottom-buttons-selected" : ""
+              }`}
+              onClick={handleTradeButtonClick}
+            >
+              Trade
+            </Button>
+            <Button
+              className={`background-bottom-buttons ${
+                page === "About" ? "background-bottom-buttons-selected" : ""
+              }`}
+              onClick={handleAboutButtonClick}
+            >
+              About
+            </Button>
             <a
               href="https://github.com/jai123singh/Decentralised-Perpetual-Futures-Trading-Platform"
               target="_blank"
@@ -270,7 +312,7 @@ export default function Background() {
                   d="M48.854,0 C21.839,0 0,22 0,49.217 C0,70.973 13.993,89.389 33.405,95.904 C35.832,96.379 36.721,94.879 36.721,93.574 C36.721,92.381 36.651,88.893 36.651,84.723 C23.054,87.682 20.201,78.824 20.201,78.824 C17.994,73.119 14.795,71.619 14.795,71.619 C10.353,68.566 15.12,68.566 15.12,68.566 C20.027,68.847 22.608,73.611 22.608,73.611 C26.977,81.115 34.01,79.039 36.862,77.734 C37.218,74.539 38.528,72.256 39.977,70.973 C29.14,69.773 17.781,65.533 17.781,46.594 C17.781,41.251 19.633,36.883 22.676,33.41 C22.252,32.176 20.607,27.105 23.282,20.359 C23.282,20.359 27.438,19.053 36.65,25.405 C40.558,24.309 44.761,23.761 48.963,23.761 C53.166,23.761 57.369,24.309 61.276,25.405 C70.489,19.053 74.645,20.359 74.645,20.359 C77.32,27.105 75.675,32.176 75.251,33.41 C78.294,36.883 80.146,41.251 80.146,46.594 C80.146,65.533 68.787,69.703 57.95,70.973 C59.75,72.619 61.276,75.744 61.276,80.463 C61.276,87.209 61.206,91.873 61.206,93.574 C61.206,94.879 62.096,96.379 64.522,95.904 C83.934,89.389 97.927,70.973 97.927,49.217 C97.858,22 75.948,0 48.854,0 Z"
                   fill="#FFFFFF"
                 />
-              </svg>{" "}
+              </svg>
               View on GitHub
             </a>
           </div>
