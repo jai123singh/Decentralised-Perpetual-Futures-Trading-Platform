@@ -149,7 +149,7 @@ export default function AboutSection() {
           <h2>Technical Infrastructure</h2>
           <p>The platform is built with a robust technical stack:</p>
           <ul className="infrastructure-list">
-            <li>Smart contracts deployed on Sepolia testnet</li>
+            <li>Smart contract deployed on Sepolia testnet</li>
             <li>Frontend hosted on Vercel with real-time notifications</li>
             <li>
               Backend on Google Cloud's e2-micro VM with PostgreSQL database
