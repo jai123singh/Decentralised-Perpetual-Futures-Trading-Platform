@@ -256,6 +256,13 @@ export default function Background() {
     }
   }
 
+  //Below we are informing trader to use sepolia testnet to trade via toast notification
+  useEffect(() => {
+    toast.info(
+      "🔔 This platform runs on the Sepolia testnet. Make sure your wallet is connected to Sepolia to use all features."
+    );
+  }, []);
+
   return (
     <TradeProvider value={tradeData}>
       <div className="background">
