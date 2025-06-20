@@ -42,6 +42,8 @@ contract Buy is
             slippageToleranceOfTrader
         )
     {
+        int256 initialPerpPrice = currentPriceOfPerp;
+
         require(
             perpPriceWhenTraderClickedBuy > 0,
             "Price at which you want to buy the perp cannot be lesser than or equal to 0."
@@ -175,6 +177,6 @@ contract Buy is
 
         //Check for liquidation and do any liquidation that is required.
 
-        checkAndLiquidateShortPositions();
+        checkAndLiquidateShortPositions(initialPerpPrice, true);
     }
 }

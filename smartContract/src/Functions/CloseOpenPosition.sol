@@ -20,10 +20,12 @@ contract CloseOpenPosition is
                 marginOfShortPositionTraderHashmap[traderAddress] != 0,
             "You have no open position"
         );
+
+        int256 initialPerpPrice = currentPriceOfPerp;
         if (marginOfLongPositionTraderHashmap[traderAddress] != 0) {
-            closeLongPosition(traderAddress);
+            closeLongPosition(traderAddress, initialPerpPrice, true);
         } else {
-            closeShortPosition(traderAddress);
+            closeShortPosition(traderAddress, initialPerpPrice, true);
         }
     }
 }

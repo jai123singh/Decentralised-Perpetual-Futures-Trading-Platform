@@ -42,6 +42,8 @@ contract Sell is
             slippageToleranceOfTrader
         )
     {
+        int256 initialPerpPrice = currentPriceOfPerp;
+
         require(
             perpPriceWhenTraderClickedSell > 0,
             "Price at which you want to sell the perp cannot be lesser than or equal to 0."
@@ -175,6 +177,6 @@ contract Sell is
 
         //Check for liquidation and do any liquidation that is required.
 
-        checkAndLiquidateLongPositions();
+        checkAndLiquidateLongPositions(initialPerpPrice, true);
     }
 }

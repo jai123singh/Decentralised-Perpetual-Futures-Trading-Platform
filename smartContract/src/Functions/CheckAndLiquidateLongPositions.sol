@@ -18,7 +18,11 @@ contract CheckAndLiquidateLongPositions is
 
     // checkAndLiquidateSLongPositions checks for automatic liquidation of long position traders when perp price decreases
     // this function calls closeLongPosition function
-    function checkAndLiquidateLongPositions() internal {
+    // The price update event would be emitted only if didTradeOccur(represents if it was actual trade and not just funding rate mechanism) is true or initialPerpPrice != currentPriceOfPerp
+    function checkAndLiquidateLongPositions(
+        int256 initialPerpPrice,
+        bool didTradeOccur
+    ) internal {
         if (triggerPriceForLongPositionLiquidationHeap.heap.length > 0) {
             (
                 address traderAddress,
@@ -69,8 +73,34 @@ contract CheckAndLiquidateLongPositions is
                 );
                 // After that, the frontend will match that address with theirs and then, if it is theirs, they will poll the blockchain to get an update on their state.
 
-                closeLongPosition(traderAddress);
+                closeLongPosition(
+                    traderAddress,
+                    initialPerpPrice,
+                    didTradeOccur
+                );
             } else {
+                // we update  lastTenPerpPriceWithTimestamp and emit PerpPriceUpdated event only if price of perp has some change or didTradeOccur is true
+                if (
+                    didTradeOccur == true ||
+                    currentPriceOfPerp != initialPerpPrice
+                ) {
+                    //insert latest perp price in the lastTenPerpPriceWithTimestamp vector
+                    lastTenPerpPriceWithTimestamp.push(
+                        currentPriceOfPerp,
+                        int256(block.timestamp)
+                    );
+                    // Emit the current price of the perp, for the frontend to update itself.
+                    emit Events.PerpPriceUpdated(
+                        currentPriceOfPerp,
+                        int256(block.timestamp)
+                    );
+                }
+            }
+        } else {
+            // we update  lastTenPerpPriceWithTimestamp and emit PerpPriceUpdated event only if price of perp has some change or didTradeOccur is true
+            if (
+                didTradeOccur == true || currentPriceOfPerp != initialPerpPrice
+            ) {
                 //insert latest perp price in the lastTenPerpPriceWithTimestamp vector
                 lastTenPerpPriceWithTimestamp.push(
                     currentPriceOfPerp,
@@ -82,23 +112,16 @@ contract CheckAndLiquidateLongPositions is
                     int256(block.timestamp)
                 );
             }
-        } else {
-            //insert latest perp price in the lastTenPerpPriceWithTimestamp vector
-            lastTenPerpPriceWithTimestamp.push(
-                currentPriceOfPerp,
-                int256(block.timestamp)
-            );
-            // Emit the current price of the perp, for the frontend to update itself.
-            emit Events.PerpPriceUpdated(
-                currentPriceOfPerp,
-                int256(block.timestamp)
-            );
         }
     }
 
     // closeLongPosition function is used to close position for a trader with long position. It is called when long position trader's position is closed ( either by his will(by calling closeOpenPosition function) or by automatic liquidation)
     // this function calls checkAndLiquidateLongPositions function
-    function closeLongPosition(address traderAddress) internal {
+    function closeLongPosition(
+        address traderAddress,
+        int256 initialPerpPrice,
+        bool didTradeOccur
+    ) internal {
         // Update liquidity pool & currentPriceOfPerp, and adjust trader's deposit based on their profit/loss
 
         // Update liquidity pool & currentPriceOfPerp
@@ -142,6 +165,6 @@ contract CheckAndLiquidateLongPositions is
         delete marginOfLongPositionTraderHashmap[traderAddress];
         delete perpCountOfTraderWithLongPositionHashmap[traderAddress];
 
-        checkAndLiquidateLongPositions();
+        checkAndLiquidateLongPositions(initialPerpPrice, didTradeOccur);
     }
 }

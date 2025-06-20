@@ -53,6 +53,8 @@ contract FundingRateMechanism is
     // The system may try to deduct the funding rate from the margin, but this can lead to liquidation if the margin falls below maintenance requirements.
 
     function fundingRateMechanism() internal {
+        int256 initialPerpPrice = currentPriceOfPerp;
+
         // TWAP is the time-weighted average perp price
         int256 twap = calculateTwap();
 
@@ -104,11 +106,11 @@ contract FundingRateMechanism is
         if (fundingRate > 0) {
             // Longs pay shorts, hence long position holders' margin might decrease.
             // Their trigger price may increase and may reach above the current price, possibly resulting in liquidation.
-            checkAndLiquidateLongPositions();
+            checkAndLiquidateLongPositions(initialPerpPrice, false);
         } else if (fundingRate < 0) {
             // Shorts pay longs, hence short position holders' margin might decrease.
             // Their trigger price may decrease and may reach below the current price, possibly resulting in liquidation.
-            checkAndLiquidateShortPositions();
+            checkAndLiquidateShortPositions(initialPerpPrice, false);
         }
 
         lastFundingTime = int256(block.timestamp);
