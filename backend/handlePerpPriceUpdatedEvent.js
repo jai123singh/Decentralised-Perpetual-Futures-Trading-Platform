@@ -46,7 +46,6 @@ async function insertMissedPerpPriceUpdates() {
   let attemptNumber = 1;
   let baseWaitPeriod = 10000; //10 seconds
   let maxWaitPeriod = 90000; // 90 seconds
-  let events;
   let blockNumberOfTheLastEntryMadeInDatabase = await getLatestBlockNumber();
 
   // getLatestBlockNumber() returning -1 means that some error happened
@@ -57,8 +56,10 @@ async function insertMissedPerpPriceUpdates() {
     return 1;
   }
 
-  // we are running following line, so that we get data from the blocknumber that came just after the last block in our database.
-  if (blockNumberOfTheLastEntryMadeInDatabase != BigInt(0)) {
+  // Special case: if db is empty, use default starting block
+  if (blockNumberOfTheLastEntryMadeInDatabase == BigInt(0)) {
+    blockNumberOfTheLastEntryMadeInDatabase = BigInt(8591308);
+  } else {
     blockNumberOfTheLastEntryMadeInDatabase =
       blockNumberOfTheLastEntryMadeInDatabase + BigInt(1);
   }
@@ -71,19 +72,29 @@ async function insertMissedPerpPriceUpdates() {
       return -1;
     } else {
       try {
-        events = await contract.queryFilter(
-          "PerpPriceUpdated",
-          blockNumberOfTheLastEntryMadeInDatabase,
-          "latest"
-        );
+        const latestBlock = await websocketProvider.getBlockNumber();
+        const fromBlock = Number(blockNumberOfTheLastEntryMadeInDatabase);
+        const toBlock = latestBlock;
+        const processedEvents = [];
 
-        const processedEvents = events.map((event) => {
-          return {
-            newPerpPrice: event.args[0],
-            timestamp: event.args[1],
-            blockNumber: event.blockNumber,
-          };
-        });
+        for (let start = fromBlock; start <= toBlock; start += 100) {
+          const end = Math.min(start + 99, toBlock);
+          const events = await contract.queryFilter(
+            "PerpPriceUpdated",
+            start,
+            end
+          );
+
+          const chunkProcessed = events.map((event) => {
+            return {
+              newPerpPrice: event.args[0],
+              timestamp: event.args[1],
+              blockNumber: event.blockNumber,
+            };
+          });
+
+          processedEvents.push(...chunkProcessed);
+        }
 
         for (let i = 0; i < processedEvents.length; i++) {
           await storePerpData(
